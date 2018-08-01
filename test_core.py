@@ -2,7 +2,6 @@ import core
 
 
 def test_score_adding():
-    core.score_adding(3, 7, [10, 9]) == 17
-    core.score_adding(1, 9, [10, 10, 10]) == 9
-    core.score_adding(10, 2, [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]) == 11
-    core.score_adding(1, 0, []) == 0
+    core.score_adding(2, [5, 2], [[3, '/'], [5, 3]]) == [15], 7
+    core.score_adding(5, [0, '/'],
+                      [['x', 0], ['x', 0], [1, 1], [0, '/']]) == [10], '/'

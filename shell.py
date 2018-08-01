@@ -6,50 +6,53 @@ def intro():
     return name.capitalize()
 
 
-def get_score():
+def get_first_score():
     print('Please enter your scores:')
-    score = 0
-    while True:
-        first_ball = input('\nFirst Ball: ')
-        if first_ball.isnumeric() == True and (
-                float(first_ball)).is_integer() == True:
-            if int(first_ball) == 10:
-                return 10
-            elif 0 <= int(first_ball) < 10:
-                score += int(first_ball)
-                while True:
-                    second_ball = input('\nSecond Ball: ')
-                    if (score + int(second_ball)) > 10:
-                        print('\nPlease enter the correct score.')
-                    elif 0 <= int(second_ball) <= 10:
-                        score += int(second_ball)
-                        return score
-                    else:
-                        print('Please enter the correct score.')
-            else:
-                print('\nPlease enter the correct score.')
+    first_score = input('First: ')
+    if (first_score).is_integer() == True:
+        if 0 <= int(first_score) <= 9:
+            return int(first_score)
         else:
-            print('\nPlease enter the correct score.')
-    return score
+            print('Please enter a correct score.')
+    elif first_score.lower() == 'x':
+        return 'x'
+    else:
+        print('Please enter a correct score.')
 
 
-def show_score(game, name):
+def get_second_score(first_score):
+    if first_score == 'x':
+        return '-'
+    else:
+        second_score = input('Second: ')
+        if (second_score).is_integer() == True:
+            if 0 <= int(second_score) <= 9:
+                return int(second_score)
+            else:
+                print('Please enter a correct score.')
+        elif second_score.lower() == '/':
+            return '/'
+        else:
+            print('Please enter a correct score.')
+
+
+def show_score(game, name, total):
     round = 0
     print(f'\n{name}')
     for scores in game:
         round += 1
         print(f'Round {round}: {scores}\n')
+    print(f'Total: {total}')
 
 
 def main():
     game = []
     name = intro()
+    total = 0
     rounds = 1
     while rounds <= 10:
-        score = get_score()
-        game.append(core.score_adding(rounds, score, game))
-        show_score(game, name)
-        rounds += 1
+        first_score = get_first_score()
+        second_score = get_second_score(first_score)
 
 
 if __name__ == '__main__':
