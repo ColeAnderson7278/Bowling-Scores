@@ -61,25 +61,27 @@ def show_score(game, name, total):
     print(f'Total: {total}')
 
 
-def find_strike_spare(game):
+def find_total(game):
     total = 0
     for rounds in game:
         if 'x' in rounds:
-            if 'x' in game[(game.index(rounds))]:
-                total += 10
-            elif '/' in game[(game.index(rounds))]:
-                game = game[(game.index(rounds))]
-                total += game[0]
+            if 'x' in game[(game.index(rounds)) + 1]:
+                total += 20
+            elif '/' in game[(game.index(rounds)) + 1]:
+                game = game[(game.index(rounds)) + 1]
+                total += (game[0] + 10)
             else:
-                total += sum(game[(game.index(rounds))])
+                total += sum(game[(game.index(rounds)) + 1])
         elif '/' in rounds:
-            if 'x' in game[(game.index(rounds))]:
-                total += 10
-            elif '/' in game[(game.index(rounds))]:
-                game = game[(game.index(rounds))]
-                total += game[0]
+            if 'x' in game[(game.index(rounds)) + 1]:
+                total += 20
+            elif '/' in game[(game.index(rounds)) + 1]:
+                game = game[(game.index(rounds)) + 1]
+                total += (game[0] + 10)
             else:
-                total += sum(game[(game.index(rounds))])
+                total += sum(game[(game.index(rounds)) + 1])
+        else:
+            total += sum(rounds)
     return total
 
 
@@ -95,7 +97,7 @@ def main():
         game.append([first_score, second_score])
         rounds += 1
         print(game)
-    print(f'Total Score: {find_strike_spare(game)}')
+    print(f'Total Score: {find_total(game)}')
 
 
 if __name__ == '__main__':
