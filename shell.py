@@ -10,8 +10,7 @@ def get_first_score(name):
     while True:
         print(f'\n(X = Strike  / = Spare)\nPlease enter your score {name}:')
         first_score = input('First: ')
-        if str(first_score).isdigit() == True and float(
-                first_score).is_integer() == True:
+        if str(first_score).isdigit() == True:
             if 0 <= int(first_score) <= 9:
                 return int(first_score)
             else:
@@ -28,8 +27,7 @@ def get_second_score(first_score):
     else:
         while True:
             second_score = input('\nSecond: ')
-            if str(second_score).isdigit() == True and float(
-                    second_score).is_integer() == True:
+            if str(second_score).isdigit() == True:
                 if 0 <= int(second_score) <= 9:
                     if first_score + int(second_score) < 10:
                         return int(second_score)
@@ -37,7 +35,7 @@ def get_second_score(first_score):
                         print('Please enter a correct score.')
                 else:
                     print('Please enter a correct score.')
-            elif second_score.lower() == '/':
+            elif second_score.strip() == '/':
                 return '/'
             else:
                 print('Please enter a correct score.')
