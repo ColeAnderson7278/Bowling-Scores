@@ -31,7 +31,10 @@ def get_second_score(first_score):
             if str(second_score).isdigit() == True and float(
                     second_score).is_integer() == True:
                 if 0 <= int(second_score) <= 9:
-                    return int(second_score)
+                    if first_score + int(second_score) < 10:
+                        return int(second_score)
+                    else:
+                        print('Please enter a correct score.')
                 else:
                     print('Please enter a correct score.')
             elif second_score.lower() == '/':
@@ -59,23 +62,25 @@ def show_score(game, name, total):
 
 
 def find_strike_spare(game):
+    total = 0
     for rounds in game:
         if 'x' in rounds:
             if 'x' in game[(game.index(rounds))]:
-                return 10
+                total += 10
             elif '/' in game[(game.index(rounds))]:
                 game = game[(game.index(rounds))]
-                return game[0]
+                total += game[0]
             else:
-                return sum(game[(game.index(rounds))])
+                total += sum(game[(game.index(rounds))])
         elif '/' in rounds:
             if 'x' in game[(game.index(rounds))]:
-                return 10
+                total += 10
             elif '/' in game[(game.index(rounds))]:
                 game = game[(game.index(rounds))]
-                return game[0]
+                total += game[0]
             else:
-                return sum(game[(game.index(rounds))])
+                total += sum(game[(game.index(rounds))])
+    return total
 
 
 def main():
