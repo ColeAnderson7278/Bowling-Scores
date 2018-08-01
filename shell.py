@@ -65,13 +65,16 @@ def find_total(game):
     total = 0
     for rounds in game:
         if 'x' in rounds:
-            if 'x' in game[(game.index(rounds)) + 1]:
+            if 'x' in game[(game.index(rounds)) +
+                           1] and 'x' in game[(game.index(rounds)) + 2]:
+                total += 30
+            elif 'x' in game[(game.index(rounds)) + 1]:
                 total += 20
             elif '/' in game[(game.index(rounds)) + 1]:
                 game = game[(game.index(rounds)) + 1]
                 total += (game[0] + 10)
             else:
-                total += sum(game[(game.index(rounds)) + 1])
+                total += (10 + sum(game[(game.index(rounds)) + 1]))
         elif '/' in rounds:
             if 'x' in game[(game.index(rounds)) + 1]:
                 total += 20
@@ -79,7 +82,8 @@ def find_total(game):
                 game = game[(game.index(rounds)) + 1]
                 total += (game[0] + 10)
             else:
-                total += sum(game[(game.index(rounds)) + 1])
+                game = game[(game.index(rounds)) + 1]
+                total += game[0]
         else:
             total += sum(rounds)
     return total
@@ -93,7 +97,6 @@ def main():
         print(f'\nRound {rounds}')
         first_score = get_first_score(name)
         second_score = get_second_score(first_score)
-        #total += adding_to_total(first_score, second_score, total)
         game.append([first_score, second_score])
         rounds += 1
         print(game)
