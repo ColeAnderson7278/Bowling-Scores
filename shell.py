@@ -50,40 +50,62 @@ def adding_to_total(first_score, second_score, total):
         return (int(first_score) + int(second_score))
 
 
-def show_score(game, name, total):
-    round = 0
-    print(f'\n{name}')
-    for scores in game:
-        round += 1
-        print(f'Round {round}: {scores}\n')
-    print(f'Total: {total}')
+def show_score(game, name):
+    count = 1
+    print(f'\nFinal scores for {name}\n-----------')
+    for frames in game:
+        print(f'Round: {count} First: {frames[0]} Second: {frames[1]}')
+        count += 1
 
 
-def find_total(game):
+def find_total(game, rounds):
     total = 0
-    for rounds in game:
-        if 'x' in rounds:
-            if 'x' in game[(game.index(rounds)) +
-                           1] and 'x' in game[(game.index(rounds)) + 2]:
+    for count, frame in enumerate(game):
+        if count == 9:
+            if 'x' in frame:
+                total += 20
+            elif '/' in frame:
+                total += 10
+            else:
+                total += sum(frame)
+        elif count == 8:
+            if 'x' in frame:
+                if 'x' in game[count + 1]:
+                    total += 30
+                elif '/' in game[count + 1]:
+                    total += 20
+                else:
+                    total += (10 + sum(game[count + 1]))
+            elif '/' in frame:
+                if 'x' in game[count + 1]:
+                    total += 20
+                elif '/' in game[count + 1]:
+                    special = game[count + 1]
+                    total += (10 + special[0])
+                else:
+                    total += (10 + special[0])
+                    
+        elif 'x' in frame:
+            if 'x' in game[count + 1] and 'x' in game[count + 2]
                 total += 30
-            elif 'x' in game[(game.index(rounds)) + 1]:
+            elif 'x' in game[count + 1]:
                 total += 20
-            elif '/' in game[(game.index(rounds)) + 1]:
-                game = game[(game.index(rounds)) + 1]
-                total += (game[0] + 10)
+            elif '/' in game[count + 1]:
+                special = game[count + 1]
+                total += (special[0] + 10)
             else:
-                total += (10 + sum(game[(game.index(rounds)) + 1]))
-        elif '/' in rounds:
-            if 'x' in game[(game.index(rounds)) + 1]:
+                total += (10 + sum(game[count + 1]))
+        elif '/' in frame:
+            if 'x' in game[count + 1]:
                 total += 20
-            elif '/' in game[(game.index(rounds)) + 1]:
-                game = game[(game.index(rounds)) + 1]
-                total += (game[0] + 10)
+            elif '/' in game[count + 1]:
+                special = game[count + 1]
+                total += (special[0] + 10)
             else:
-                game = game[(game.index(rounds)) + 1]
-                total += game[0]
+                special = game[count + 1]
+                total += special[0]
         else:
-            total += sum(rounds)
+            total += sum(frame)
     return total
 
 
@@ -97,8 +119,8 @@ def main():
         second_score = get_second_score(first_score)
         game.append([first_score, second_score])
         rounds += 1
-        print(game)
-    print(f'Total Score: {find_total(game)}')
+    show_score(game, name)
+    print(f'Total Score: {find_total(game,rounds)}')
 
 
 if __name__ == '__main__':
