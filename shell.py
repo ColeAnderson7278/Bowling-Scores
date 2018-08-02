@@ -69,7 +69,7 @@ def main():
         game.append([first_score, second_score])
         rounds += 1
     show_score(game, name)
-    print(f'Total Score: {core.find_total(game,rounds)}')
+    print(f'Total Score: {core.find_total(game)}')
 
 
 if __name__ == '__main__':

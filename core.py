@@ -1,4 +1,4 @@
-def find_total(game, rounds):
+def find_total(game):
     total = 0
     for count, frame in enumerate(game):
         if count == 9:
