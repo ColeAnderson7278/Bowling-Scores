@@ -3,11 +3,11 @@ def find_total(game):
     for count, frame in enumerate(game):
         if count == 9:
             if 'x' in frame:
-                total += 30
+                total += 0
             elif '/' in frame:
-                total += 20
+                total += 0
             else:
-                total += sum(frame)
+                total += 0
         elif count == 8:
             if 'x' in frame:
                 if 'x' in game[count + 1]:

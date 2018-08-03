@@ -23,68 +23,23 @@ def first_for_tenth(name, frame):
 
 def get_first_score(name, frame):
     while True:
-        if frame == 10:
-            first_score = first_for_tenth(name, frame)
-            if str(first_score).isdigit() == True:
-                second_score = input('Second: ')
-                if str(second_score).isdigit() == True:
-                    if (int(second_score) + int(first_score)) < 10:
-                        return (int(second_score) + int(first_score))
-                    elif (int(second_score) + int(first_score)) == 10:
-                        third_score = input('Third: ')
-                        if str(third_score).isdigit() == True:
-                            if 0 <= int(third_score) < 10:
-                                total = (10 + third_score)
-                                tenth_frame = [int(first_score), '/', int(third_score)]
-                                return tenth_frame, total
-                        elif third_score == 'x':
-                            tenth_frame = [int(first_score), '/', 'x']
-                            return tenth_frame, 20
-                        else:
-                            print('Please enter a correct score.')
-                else:
-                    print('Please enter a correct score.')
-            elif first_score == 'x':
-                second_score = input('Second: ')
-                if str(second_score).isdigit() == True:
-                    if int(second_score) < 10:
-                        third_score = input('Third: ')
-                        if str(third_score).isdigit() == True:
-                            if (int(third_score) + int(second_score)) == 10:
-                                tenth_frame = ['x', int(second_score), '/']
-                                return tenth_frame, 20
-                            elif (int(second_score) + int(third_score)) < 10:
-                                total = 10 + (int(second_score) + int(third_score))
-                                tenth_frame = ['x', int(second_score), int(third_score)]
-                                return tenth_frame, total
-                            else:
-                                print('Please enter a correct score.')
-                    else:
-                        print('Please enter a correct score.')
-                elif second_score == 'x':
-                    #####################
-                else:
-                    print('Please enter a correct score.')
-
-
-    else:
-        while True:
-            print(
-                f'\n(X = Strike  / = Spare)\nPlease enter your score {name}:')
-            first_score = input('First: ')
-            if str(first_score).isdigit() == True:
-                if 0 <= int(first_score) <= 9:
-                    return int(first_score)
-                else:
-                    print('Please enter a correct score.')
-            elif first_score.lower() == 'x':
-                return 'x'
+        print(f'\n(X = Strike  / = Spare)\nPlease enter your score {name}:')
+        first_score = input('First: ')
+        if str(first_score).isdigit() == True:
+            if 0 <= int(first_score) <= 9:
+                return int(first_score)
             else:
                 print('Please enter a correct score.')
+        elif first_score.lower() == 'x':
+            return 'x'
+        else:
+            print('Please enter a correct score.')
 
 
-def get_second_score(first_score):
-    if first_score == 'x':
+def get_second_score(first_score, frame):
+    if frame == 10:
+        return first_score
+    elif first_score == 'x':
         return '-'
     else:
         while True:
@@ -107,22 +62,99 @@ def show_score(game, name):
     count = 1
     print(f'\nFinal scores for {name}\n-----------')
     for frames in game:
-        print(f'Frame: {count} First: {frames[0]} Second: {frames[1]}')
-        count += 1
+        if count == 10:
+            if len(frames) == 3:
+                print(
+                    f'Frame: {count} First: {frames[0]} Second: {frames[1]} Third: {frames[2]}'
+                )
+                count += 1
+            else:
+                print(f'Frame: {count} First: {frames[0]} Second: {frames[1]}')
+                count += 1
+        else:
+            print(f'Frame: {count} First: {frames[0]} Second: {frames[1]}')
+            count += 1
+
+
+def play_tenth(name, frame):
+    first_score = first_for_tenth(name, frame)
+    if str(first_score).isdigit() == True:
+        second_score = input('Second: ')
+        if str(second_score).isdigit() == True:
+            if (int(second_score) + int(first_score)) < 10:
+                return (int(second_score) + int(first_score))
+            elif (int(second_score) + int(first_score)) == 10:
+                third_score = input('Third: ')
+                if str(third_score).isdigit() == True:
+                    if 0 <= int(third_score) < 10:
+                        total = (10 + third_score)
+                        tenth_frame = [int(first_score), '/', int(third_score)]
+                        return tenth_frame, total
+                elif third_score == 'x':
+                    tenth_frame = [int(first_score), '/', 'x']
+                    return tenth_frame, 20
+                else:
+                    print('Please enter a correct score.')
+        else:
+            print('Please enter a correct score.')
+    elif first_score == 'x':
+        second_score = input('Second: ')
+        if str(second_score).isdigit() == True:
+            if int(second_score) < 10:
+                third_score = input('Third: ')
+                if str(third_score).isdigit() == True:
+                    if (int(third_score) + int(second_score)) == 10:
+                        tenth_frame = ['x', int(second_score), '/']
+                        return tenth_frame, 20
+                    elif (int(second_score) + int(third_score)) < 10:
+                        total = 10 + (int(second_score) + int(third_score))
+                        tenth_frame = [
+                            'x', int(second_score),
+                            int(third_score)
+                        ]
+                        return tenth_frame, total
+                    else:
+                        print('Please enter a correct score.')
+            else:
+                print('Please enter a correct score.')
+        elif second_score == 'x':
+            third_score = input('Third: ')
+            if str(third_score).isdigit() == True:
+                if 0 <= int(third_score) < 10:
+                    total += (20 + third_score)
+                    tenth_frame = ['x', 'x', int(third_score)]
+                    return tenth_frame, total
+                else:
+                    print('Please enter a correct score.')
+            elif third_score == 'x':
+                tenth_frame = ['x', 'x', 'x']
+                return tenth_frame, 30
+            else:
+                print('Please enter a correct score.')
+        else:
+            print('Please enter a correct score.')
 
 
 def main():
     game = []
     name = intro()
     frame = 1
-    while frame <= 10:
+    tenth_total = 0
+    while frame < 10:
         print(f'\nFrame {frame}')
-        first_score = get_first_score(name)
-        second_score = get_second_score(first_score)
+        first_score = get_first_score(name, frame)
+        second_score = get_second_score(first_score, frame)
         game.append([first_score, second_score])
         frame += 1
+    while frame == 10:
+        print(f'Frame {frame}')
+        tenth_frame, total = play_tenth(name, frame)
+        game.append(tenth_frame)
+        tenth_total += total
+        frame += 1
+
     show_score(game, name)
-    print(f'Total Score: {core.find_total(game)}')
+    print(f'Total Score: {(core.find_total(game) + tenth_total)}')
 
 
 if __name__ == '__main__':
