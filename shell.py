@@ -109,20 +109,21 @@ def play_tenth(name, frame):
             second_score = input('\nSecond: ')
             if str(second_score).isdigit() == True:
                 if int(second_score) < 10:
-                    third_score = input('\nThird: ')
-                    if str(third_score).isdigit() == True:
-                        if (int(third_score) + int(second_score)) == 10:
-                            tenth_frame = ['x', int(second_score), '/']
-                            return tenth_frame, 20
-                        elif (int(second_score) + int(third_score)) < 10:
-                            total = 10 + (int(second_score) + int(third_score))
-                            tenth_frame = [
-                                'x', int(second_score),
-                                int(third_score)
-                            ]
-                            return tenth_frame, total
-                        else:
-                            print('Please enter a correct score.')
+                    while True:
+                        third_score = input('\nThird: ')
+                        if str(third_score).isdigit() == True:
+                            if (int(third_score) + int(second_score)) == 10:
+                                tenth_frame = ['x', int(second_score), '/']
+                                return tenth_frame, 20
+                            elif (int(second_score) + int(third_score)) < 10:
+                                total = 10 + (int(second_score) + int(third_score))
+                                tenth_frame = [
+                                    'x', int(second_score),
+                                    int(third_score)
+                                ]
+                                return tenth_frame, total
+                            else:
+                                print('Please enter a correct score.')
                 else:
                     print('Please enter a correct score.')
             elif second_score == 'x':
@@ -130,7 +131,7 @@ def play_tenth(name, frame):
                     third_score = input('\nThird: ')
                     if str(third_score).isdigit() == True:
                         if 0 <= int(third_score) < 10:
-                            total += (20 + third_score)
+                            total = (20 + third_score)
                             tenth_frame = ['x', 'x', int(third_score)]
                             return tenth_frame, total
                         else:
