@@ -10,15 +10,14 @@ def find_total(game):
                 total += 0
         elif count == 8:
             if 'x' in frame:
-                if 'x' in game[count + 1]:
-                    if game[0] == 'x' and game[1] == 'x':
-                        total += 30
-                    elif game[0] == 'x':
-                        total += (20 + int(game[1]))
-                elif '/' in game[count + 1]:
+                if 'x' == game[count + 1][0] and 'x' == game[count + 1][1]:
+                    total += 30
+                elif 'x' == game[count + 1][0]:
+                    total += (20 + (game[count + 1][1]))
+                elif '/' == game[count + 1][1]:
                     total += 20
                 else:
-                    total += (10 + sum(game[count + 1]))
+                    total += (game[count + 1][0] + game[count + 1][1])
             elif '/' in frame:
                 if 'x' in game[count + 1]:
                     total += 20
@@ -27,9 +26,6 @@ def find_total(game):
                     total += (10 + special[0])
             else:
                 total += sum(frame)
-        #elif count == 7:
-        #    if 'x' in frame:
-        #        if 'x' in game[count + 1]
         elif 'x' in frame:
             if 'x' in game[count + 1] and 'x' in game[count + 2]:
                 total += 30

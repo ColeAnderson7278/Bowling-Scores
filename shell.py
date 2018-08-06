@@ -37,8 +37,6 @@ def get_first_score(name, frame):
 
 
 def get_second_score(first_score, frame):
-    #if frame == 10:
-    #    return first_score
     if first_score == 'x':
         return '-'
     else:
